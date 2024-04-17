@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Must-Try Korean Snacks for Gifts</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  .page {
+    background-color: yellow;
+    text-align: center;
+    padding: 50px;
+  }
+  .title {
+    font-size: 30px;
+    color: black;
+  }
+  .vending-machine {
+    background-image: url('vending_machine.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 70vh; /* 70% of viewport height */
+    display: flex;
+    flex-direction: column; /* Buttons aligned vertically */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative; /* Add position relative to enable absolute positioning */
+  }
+  .btn {
+    padding: 15px 30px;
+    margin: 10px 0; /* Adjusted margin */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 200px;
+  }
+  .btn-sweety,
+  .btn-favorite-flavor,
+  .btn-favorite-texture {
+    background-color: #FFC0CB;
+    color: #fff;
+  }
+  .btn-salty,
+  .btn-crispy {
+    background-color: #87CEEB;
+    color: #fff;
+  }
+  .btn-spicy,
+  .btn-gooey,
+  .btn-chewy {
+    background-color: #FFA07A;
+    color: #fff;
+  }
+  .btn-favorite-flavor,
+  .btn-favorite-texture {
+    background-color: #0000FF;
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+  .favorite-text {
+    position: absolute;
+    bottom: 3cm; /* Adjusted position */
+  }
+  .video-container {
+    width: 50%;
+    margin: 20px auto;
+  }
+  .video {
+    width: 100%;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+  <!-- Video Container -->
+  <div class="video-container">
+    <video class="video" controls>
+      <source src="traveler.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- First Page -->
+  <div id="page1" class="page">
+    <h1 class="title">Must-Try Korean Snacks for Gifts</h1>
+    <div class="vending-machine">
+      <button class="btn btn-sweety" onclick="saveInfo('sweety')">Sweety</button>
+      <button class="btn btn-salty" onclick="saveInfo('salty')">Salty</button>
+      <button class="btn btn-spicy" onclick="saveInfo('spicy')">Spicy</button>
+      <button class="btn btn-favorite-flavor" onclick="showFavorite('flavor')">Favorite Flavor</button>
+    </div>
+  </div>
+
+  <!-- Second Page -->
+  <div id="page2" class="page" style="display: none;">
+    <h1 class="title">Korean Snack</h1>
+    <div class="vending-machine">
+      <button class="btn btn-crispy" onclick="saveInfo('crispy')">Crispy</button>
+      <button class="btn btn-gooey" onclick="saveInfo('gooey')">Gooey</button>
+      <button class="btn btn-chewy" onclick="saveInfo('chewy')">Chewy</button>
+      <button class="btn btn-favorite-texture" onclick="showFavorite('texture')">Favorite Texture</button>
+    </div>
+  </div>
+
+  <!-- Third Page -->
+  <div id="page3" class="page" style="display: none;">
+    <h1 class="title">Korean Snack</h1>
+    <div id="snack-output" class="vending-machine">
+      <!-- Output will be displayed here -->
+    </div>
+  </div>
+
+<script>
+  let firstPageSelection = '';
+  let secondPageSelection = '';
+
+  function saveInfo(selection) {
+    if (document.getElementById('page1').style.display !== 'none') {
+      firstPageSelection = selection;
+      document.getElementById('page1').style.display = 'none';
+      document.getElementById('page2').style.display = 'block';
+    } else if (document.getElementById('page2').style.display !== 'none') {
+      secondPageSelection = selection;
+      displaySnack();
+      document.getElementById('page2').style.display = 'none';
+      document.getElementById('page3').style.display = 'block';
+    }
+  }
+
+  function displaySnack() {
+    const outputDiv = document.getElementById('snack-output');
+    let snackName = '';
+
+    if (firstPageSelection === 'sweety') {
+      switch (secondPageSelection) {
+        case 'crispy':
+          snackName = '조청유과, 허니버터칩';
+          break;
+        case 'gooey':
+          snackName = '바나나킥, 카스타드';
+          break;
+        case 'chewy':
+          snackName = '약과, 쵸코파이';
+          break;
+        default:
+          break;
+      }
+    } else if (firstPageSelection === 'salty') {
+      switch (secondPageSelection) {
+        case 'crispy':
+          snackName = '오징어땅콩, 고깔콘';
+          break;
+        case 'gooey':
+          snackName = '양파링, 새우깡';
+          break;
+        case 'chewy':
+          snackName = '오징어숏다리, 질러육포';
+          break;
+        default:
+          break;
+      }
+    } else if (firstPageSelection === 'spicy') {
+      switch (secondPageSelection) {
+        case 'crispy':
+          snackName = '신당동 떡볶이';
+          break;
+        case 'gooey':
+          snackName = '구운링볶음고추장맛';
+          break;
+        case 'chewy':
+          snackName = '풀무원우리동네떡볶이';
+          break;
+        default:
+          break;
+      }
+    }
+
+    outputDiv.innerHTML = `<p>선택한 과자: ${snackName}</p>`;
+  }
+
+  function showFavorite(type) {
+    const outputDiv = document.getElementById('snack-output');
+    let favoriteText = '';
+
+    if (type === 'flavor') {
+      favoriteText = 'Favorite Flavor';
+    } else if (type === 'texture') {
+      favoriteText = 'Favorite Texture';
+    }
+
+    outputDiv.innerHTML = `<p>${favoriteText}</p>`;
+  }
+</script>
+</body>
+</html>
